@@ -111,7 +111,9 @@
 </div>
 
 <script>
-  const ENDPOINT = "https://formsubmit.co/ajax/315af0f28bc392cb40c46c5748ab2866";
+  // Google Sheet (Apps Script /exec URL, see apps-script.gs). While empty, answers go by email.
+  const SHEET_URL = "";
+  const EMAIL_URL = "https://formsubmit.co/ajax/315af0f28bc392cb40c46c5748ab2866";
 
   const T = {
     en: {
@@ -166,22 +168,32 @@
     err.hidden = true;
     btn.disabled = true; btn.textContent = T[lang].sending;
     try {
-      const res = await fetch(ENDPOINT, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", "Accept": "application/json" },
-        body: JSON.stringify({
-          _subject: "Retreat dates: " + name,
-          _template: "table",
-          _captcha: "false",
-          Name: name,
-          "Dates that work": dates.join(", "),
-          "Feb 4-7": dates.includes("Feb 4-7") ? "Yes" : "No",
-          "Feb 18-21": dates.includes("Feb 18-21") ? "Yes" : "No",
-          "Mar 4-7": dates.includes("Mar 4-7") ? "Yes" : "No"
-        })
-      });
-      const out = await res.json().catch(() => ({}));
-      if (!res.ok || out.success === "false" || out.success === false) throw new Error(out.message || res.status);
+      if (SHEET_URL) {
+        const res = await fetch(SHEET_URL, {
+          method: "POST",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify({ name, dates })
+        });
+        const out = await res.json();
+        if (!out.ok) throw new Error(out.error);
+      } else {
+        const res = await fetch(EMAIL_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "Accept": "application/json" },
+          body: JSON.stringify({
+            _subject: "Retreat dates: " + name,
+            _template: "table",
+            _captcha: "false",
+            Name: name,
+            "Dates that work": dates.join(", "),
+            "Feb 4-7": dates.includes("Feb 4-7") ? "Yes" : "No",
+            "Feb 18-21": dates.includes("Feb 18-21") ? "Yes" : "No",
+            "Mar 4-7": dates.includes("Mar 4-7") ? "Yes" : "No"
+          })
+        });
+        const out = await res.json().catch(() => ({}));
+        if (!res.ok || out.success === "false" || out.success === false) throw new Error(out.message || res.status);
+      }
       form.hidden = true;
       document.getElementById("thanks").hidden = false;
     } catch (ex) {
