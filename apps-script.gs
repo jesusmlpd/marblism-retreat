@@ -14,7 +14,8 @@ function doPost(e) {
     if (!name || !picked.length) return json_({ ok: false, error: 'missing' });
 
     const sh = setup_();
-    sh.appendRow([new Date(), name].concat(DATES.map(x => picked.includes(x) ? 'Sí' : 'No')));
+    const allergies = clean_(d.allergies) || 'Ninguna';
+    sh.appendRow([new Date(), name].concat(DATES.map(x => picked.includes(x) ? 'Sí' : 'No'), [allergies]));
     return json_({ ok: true });
   } catch (err) {
     return json_({ ok: false, error: String(err) });
@@ -30,8 +31,8 @@ function setup_() {
   if (sh) return sh;
 
   sh = ss.insertSheet('Respuestas', 0);
-  sh.appendRow(['Fecha', 'Nombre'].concat(DATES));
-  sh.getRange(1, 1, 1, DATES.length + 2).setFontWeight('bold').setBackground('#ffd400');
+  sh.appendRow(['Fecha', 'Nombre'].concat(DATES, ['Alergias']));
+  sh.getRange(1, 1, 1, DATES.length + 3).setFontWeight('bold').setBackground('#ffd400');
   sh.setFrozenRows(1);
 
   const sum = ss.insertSheet('Resumen', 1);
@@ -47,7 +48,7 @@ function setup_() {
 
 // Evita que un nombre como "=algo" se ejecute como fórmula.
 function clean_(v) {
-  const s = String(v || '').trim().slice(0, 100);
+  const s = String(v || '').trim().slice(0, 200);
   return /^[=+\-@]/.test(s) ? "'" + s : s;
 }
 

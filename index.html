@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Marblism Retreat 2027</title>
-<meta name="description" content="Tap the dates that work for you for the Marblism team retreat, February or early March 2027.">
+<meta name="description" content="Tap the dates that work for you for the Marblism team retreat in Mexico, February or early March 2027.">
 <meta name="theme-color" content="#fbf9f3">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -82,9 +82,9 @@
     </nav>
   </div>
 
-  <p class="kicker"><span data-i18n="kicker">Team retreat · 2027</span></p>
+  <p class="kicker"><span data-i18n="kicker">Team retreat · Mexico · 2027</span></p>
   <h1 data-i18n="title">When can you go?</h1>
-  <p class="sub" data-i18n="sub">Thursday to Sunday. Tap every date that works for you.</p>
+  <p class="sub" data-i18n="sub">Thursday to Sunday in Mexico. Tap every date that works for you.</p>
 
   <form id="survey" novalidate>
     <div>
@@ -102,12 +102,17 @@
       <p class="hint" data-i18n="hint">Pick one, two or all three.</p>
     </div>
 
+    <div>
+      <p class="step"><span class="n">3</span><span data-i18n="s3">Are you allergic to anything?</span></p>
+      <input class="fi" id="allergies" name="allergies" type="text" maxlength="200" aria-label="Allergies" data-i18n-ph="allergyPh" placeholder="Food, medicine, anything. Leave empty if none.">
+    </div>
+
     <p class="err" id="err" hidden></p>
     <button class="btn" type="submit" id="send" data-i18n="send">Send</button>
   </form>
   <p class="thanks" id="thanks" hidden data-i18n="thanks">Got it, thank you! We will share the final dates soon.</p>
 
-  <footer data-i18n="footer">Marblism · Team retreat 2027</footer>
+  <footer data-i18n="footer">Marblism · Team retreat · Mexico 2027</footer>
 </div>
 
 <script>
@@ -117,26 +122,26 @@
 
   const T = {
     en: {
-      kicker:"Team retreat · 2027", title:"When can you go?",
-      sub:"Thursday to Sunday. Tap every date that works for you.",
-      s1:"Your name", s2:"Dates that work for you",
+      kicker:"Team retreat · Mexico · 2027", title:"When can you go?",
+      sub:"Thursday to Sunday in Mexico. Tap every date that works for you.",
+      s1:"Your name", s2:"Dates that work for you", s3:"Are you allergic to anything?", allergyPh:"Food, medicine, anything. Leave empty if none.",
       rangeA:"Feb 4 to 7", rangeB:"Feb 18 to 21", rangeC:"Mar 4 to 7", days:"Thu, Fri, Sat, Sun",
       hint:"Pick one, two or all three.", send:"Send", sending:"Sending...",
       thanks:"Got it, thank you! We will share the final dates soon.",
       noName:"Please write your name.", noDates:"Tap at least one date.",
       failed:"Something went wrong. Please try again in a minute.",
-      footer:"Marblism · Team retreat 2027"
+      footer:"Marblism · Team retreat · Mexico 2027"
     },
     es: {
-      kicker:"Retiro del equipo · 2027", title:"¿Cuándo puedes ir?",
-      sub:"De jueves a domingo. Toca todas las fechas que te funcionen.",
-      s1:"Tu nombre", s2:"Fechas que te funcionan",
+      kicker:"Retiro del equipo · México · 2027", title:"¿Cuándo puedes ir?",
+      sub:"De jueves a domingo en México. Toca todas las fechas que te funcionen.",
+      s1:"Tu nombre", s2:"Fechas que te funcionan", s3:"¿Eres alérgico a algo?", allergyPh:"Comida, medicinas, lo que sea. Déjalo vacío si nada.",
       rangeA:"4 al 7 feb", rangeB:"18 al 21 feb", rangeC:"4 al 7 mar", days:"Jue, Vie, Sáb, Dom",
       hint:"Elige una, dos o las tres.", send:"Enviar", sending:"Enviando...",
       thanks:"¡Listo, gracias! Pronto compartimos las fechas finales.",
       noName:"Escribe tu nombre.", noDates:"Toca al menos una fecha.",
       failed:"Algo salió mal. Inténtalo de nuevo en un minuto.",
-      footer:"Marblism · Retiro del equipo 2027"
+      footer:"Marblism · Retiro del equipo · México 2027"
     }
   };
 
@@ -148,6 +153,7 @@
     lang = l;
     document.documentElement.lang = l;
     document.querySelectorAll("[data-i18n]").forEach(el => { el.textContent = T[l][el.dataset.i18n]; });
+    document.querySelectorAll("[data-i18n-ph]").forEach(el => { el.placeholder = T[l][el.dataset.i18nPh]; });
     document.querySelectorAll(".lang button").forEach(b => b.classList.toggle("on", b.dataset.lang === l));
     try { localStorage.setItem("retreat-lang", l); } catch (e) {}
   }
@@ -163,6 +169,7 @@
     const d = new FormData(form);
     const name = (d.get("name") || "").trim();
     const dates = d.getAll("dates");
+    const allergies = (d.get("allergies") || "").trim();
     if (!name) { err.textContent = T[lang].noName; err.hidden = false; return; }
     if (!dates.length) { err.textContent = T[lang].noDates; err.hidden = false; return; }
     err.hidden = true;
@@ -172,7 +179,7 @@
         const res = await fetch(SHEET_URL, {
           method: "POST",
           headers: { "Content-Type": "text/plain;charset=utf-8" },
-          body: JSON.stringify({ name, dates })
+          body: JSON.stringify({ name, dates, allergies })
         });
         const out = await res.json();
         if (!out.ok) throw new Error(out.error);
@@ -188,7 +195,8 @@
             "Dates that work": dates.join(", "),
             "Feb 4-7": dates.includes("Feb 4-7") ? "Yes" : "No",
             "Feb 18-21": dates.includes("Feb 18-21") ? "Yes" : "No",
-            "Mar 4-7": dates.includes("Mar 4-7") ? "Yes" : "No"
+            "Mar 4-7": dates.includes("Mar 4-7") ? "Yes" : "No",
+            Allergies: allergies || "None"
           })
         });
         const out = await res.json().catch(() => ({}));
