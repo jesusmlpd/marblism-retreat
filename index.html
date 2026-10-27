@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Marblism Retreat 2027</title>
-<meta name="description" content="Pick the dates that work for you for the Marblism team retreat, February 2027.">
+<meta name="description" content="Pick the dates that work for you for the Marblism team retreat, February or early March 2027.">
 <meta name="theme-color" content="#fbf9f3">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -43,10 +43,10 @@
   h2 .n{font-size:.7em;background:var(--ink);color:var(--yellow);padding:4px 8px 2px;line-height:1}
   section{margin-bottom:56px}
 
-  .options{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .options{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
   .opt{border:2px solid var(--ink);background:#fff;padding:20px}
   .opt .tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:var(--ink);color:var(--yellow);padding:3px 8px;margin-bottom:14px}
-  .opt .range{font-family:var(--display);font-weight:900;text-transform:uppercase;font-size:clamp(34px,6vw,48px);line-height:1;margin-bottom:16px}
+  .opt .range{font-family:var(--display);font-weight:900;text-transform:uppercase;font-size:clamp(34px,5vw,40px);line-height:1;margin-bottom:16px}
   .days{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
   .day{border:1px solid var(--ink);text-align:center;padding:8px 0 6px}
   .day b{display:block;font-family:var(--display);font-weight:900;font-size:28px;line-height:1}
@@ -76,7 +76,7 @@
 
   footer{border-top:1px solid var(--ink);padding-top:18px;font-size:12.5px;color:var(--muted)}
 
-  @media (max-width:620px){
+  @media (max-width:720px){
     .options{grid-template-columns:1fr}
   }
 </style>
@@ -92,12 +92,12 @@
     </nav>
   </div>
 
-  <p class="kicker"><span data-i18n="kicker">Team retreat · February 2027</span></p>
+  <p class="kicker"><span data-i18n="kicker">Team retreat · Feb / Mar 2027</span></p>
   <h1 data-i18n="title">When should we go?</h1>
-  <p class="sub" data-i18n="sub">The Marblism retreat is Thursday to Sunday, sometime in February. We have two options. Tell us which one works for you and we will pick the date most people can make.</p>
+  <p class="sub" data-i18n="sub">The Marblism retreat is Thursday to Sunday, in February or the first week of March. We have three options. Tell us which one works for you and we will pick the date most people can make.</p>
 
   <section>
-    <h2><span class="n">01</span><span data-i18n="h1">The two options</span></h2>
+    <h2><span class="n">01</span><span data-i18n="h1">The three options</span></h2>
     <div class="options">
       <div class="opt">
         <span class="tag" data-i18n="optA">Option A</span>
@@ -117,6 +117,16 @@
           <div class="day"><b>19</b><small data-i18n="fri">Fri</small></div>
           <div class="day"><b>20</b><small data-i18n="sat">Sat</small></div>
           <div class="day"><b>21</b><small data-i18n="sun">Sun</small></div>
+        </div>
+      </div>
+      <div class="opt">
+        <span class="tag" data-i18n="optC">Option C</span>
+        <div class="range" data-i18n="rangeC">Mar 4 to 7</div>
+        <div class="days">
+          <div class="day"><b>4</b><small data-i18n="thu">Thu</small></div>
+          <div class="day"><b>5</b><small data-i18n="fri">Fri</small></div>
+          <div class="day"><b>6</b><small data-i18n="sat">Sat</small></div>
+          <div class="day"><b>7</b><small data-i18n="sun">Sun</small></div>
         </div>
       </div>
     </div>
@@ -149,10 +159,20 @@
       </fieldset>
 
       <fieldset class="q">
+        <legend data-i18n="qC">Can you make Option C (Mar 4 to 7)?</legend>
+        <div class="choices">
+          <label><input type="radio" name="optionC" value="Yes" required><span data-i18n="yes">Yes</span></label>
+          <label><input type="radio" name="optionC" value="Maybe"><span data-i18n="maybe">Maybe</span></label>
+          <label><input type="radio" name="optionC" value="No"><span data-i18n="no">No</span></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="q">
         <legend data-i18n="qPref">Which one do you prefer?</legend>
         <div class="choices">
           <label><input type="radio" name="preference" value="Option A (Feb 4-7)" required><span data-i18n="optA">Option A</span></label>
           <label><input type="radio" name="preference" value="Option B (Feb 18-21)"><span data-i18n="optB">Option B</span></label>
+          <label><input type="radio" name="preference" value="Option C (Mar 4-7)"><span data-i18n="optC">Option C</span></label>
           <label><input type="radio" name="preference" value="Either works"><span data-i18n="either">Either works</span></label>
         </div>
       </fieldset>
@@ -168,7 +188,7 @@
     <p class="thanks" id="thanks" hidden data-i18n="thanks">Got it, thank you! We will share the final dates soon.</p>
   </section>
 
-  <footer data-i18n="footer">Marblism · Team retreat · February 2027</footer>
+  <footer data-i18n="footer">Marblism · Team retreat · Feb / Mar 2027</footer>
 </div>
 
 <script>
@@ -176,32 +196,32 @@
 
   const T = {
     en: {
-      kicker:"Team retreat · February 2027", title:"When should we go?",
-      sub:"The Marblism retreat is Thursday to Sunday, sometime in February. We have two options. Tell us which one works for you and we will pick the date most people can make.",
-      h1:"The two options", optA:"Option A", optB:"Option B", rangeA:"Feb 4 to 7", rangeB:"Feb 18 to 21",
+      kicker:"Team retreat · Feb / Mar 2027", title:"When should we go?",
+      sub:"The Marblism retreat is Thursday to Sunday, in February or the first week of March. We have three options. Tell us which one works for you and we will pick the date most people can make.",
+      h1:"The three options", optA:"Option A", optB:"Option B", optC:"Option C", rangeA:"Feb 4 to 7", rangeB:"Feb 18 to 21", rangeC:"Mar 4 to 7",
       thu:"Thu", fri:"Fri", sat:"Sat", sun:"Sun",
       h2:"Your answer", fName:"Your name",
-      qA:"Can you make Option A (Feb 4 to 7)?", qB:"Can you make Option B (Feb 18 to 21)?",
+      qA:"Can you make Option A (Feb 4 to 7)?", qB:"Can you make Option B (Feb 18 to 21)?", qC:"Can you make Option C (Mar 4 to 7)?",
       yes:"Yes", maybe:"Maybe", no:"No", qPref:"Which one do you prefer?", either:"Either works",
       fNotes:"Anything we should know? (optional)", send:"Send my answer", sending:"Sending...",
       thanks:"Got it, thank you! We will share the final dates soon.",
-      missing:"Please add your name and answer the three questions.",
+      missing:"Please add your name and answer all the questions.",
       failed:"Something went wrong. Please try again in a minute.",
-      footer:"Marblism · Team retreat · February 2027"
+      footer:"Marblism · Team retreat · Feb / Mar 2027"
     },
     es: {
-      kicker:"Retiro del equipo · Febrero 2027", title:"¿Cuándo nos vamos?",
-      sub:"El retiro de Marblism es de jueves a domingo, en algún fin de semana de febrero. Tenemos dos opciones. Dinos cuál te funciona y elegimos la fecha a la que pueda ir más gente.",
-      h1:"Las dos opciones", optA:"Opción A", optB:"Opción B", rangeA:"4 al 7 de feb", rangeB:"18 al 21 de feb",
+      kicker:"Retiro del equipo · Feb / Mar 2027", title:"¿Cuándo nos vamos?",
+      sub:"El retiro de Marblism es de jueves a domingo, en febrero o la primera semana de marzo. Tenemos tres opciones. Dinos cuál te funciona y elegimos la fecha a la que pueda ir más gente.",
+      h1:"Las tres opciones", optA:"Opción A", optB:"Opción B", optC:"Opción C", rangeA:"4 al 7 de feb", rangeB:"18 al 21 de feb", rangeC:"4 al 7 de mar",
       thu:"Jue", fri:"Vie", sat:"Sáb", sun:"Dom",
       h2:"Tu respuesta", fName:"Tu nombre",
-      qA:"¿Puedes ir en la Opción A (4 al 7 de feb)?", qB:"¿Puedes ir en la Opción B (18 al 21 de feb)?",
+      qA:"¿Puedes ir en la Opción A (4 al 7 de feb)?", qB:"¿Puedes ir en la Opción B (18 al 21 de feb)?", qC:"¿Puedes ir en la Opción C (4 al 7 de mar)?",
       yes:"Sí", maybe:"Tal vez", no:"No", qPref:"¿Cuál prefieres?", either:"Me da igual",
       fNotes:"¿Algo que debamos saber? (opcional)", send:"Enviar mi respuesta", sending:"Enviando...",
       thanks:"¡Listo, gracias! Pronto compartimos las fechas finales.",
-      missing:"Pon tu nombre y contesta las tres preguntas.",
+      missing:"Pon tu nombre y contesta todas las preguntas.",
       failed:"Algo salió mal. Inténtalo de nuevo en un minuto.",
-      footer:"Marblism · Retiro del equipo · Febrero 2027"
+      footer:"Marblism · Retiro del equipo · Feb / Mar 2027"
     }
   };
 
@@ -227,7 +247,7 @@
     e.preventDefault();
     const d = new FormData(form);
     const name = (d.get("name") || "").trim();
-    if (!name || !d.get("optionA") || !d.get("optionB") || !d.get("preference")) {
+    if (!name || !d.get("optionA") || !d.get("optionB") || !d.get("optionC") || !d.get("preference")) {
       err.textContent = T[lang].missing; err.hidden = false; return;
     }
     err.hidden = true;
@@ -243,6 +263,7 @@
           Name: name,
           "Option A (Feb 4-7)": d.get("optionA"),
           "Option B (Feb 18-21)": d.get("optionB"),
+          "Option C (Mar 4-7)": d.get("optionC"),
           Preference: d.get("preference"),
           Notes: (d.get("notes") || "").trim() || "-"
         })
