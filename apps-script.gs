@@ -2,7 +2,7 @@
 // Pegar en Extensiones > Apps Script del Sheet y publicar como app web
 // (Ejecutar como: yo, Quién tiene acceso: cualquier usuario).
 
-const DATES = ['Jan 31-Feb 7', 'Feb 14-21', 'Feb 28-Mar 7'];
+const DATES = ['Jan 31-Feb 7', 'Feb 14-21', 'Feb 21-28', 'Feb 28-Mar 7'];
 // Valores de la versión jueves a domingo, por si alguien tiene la página vieja abierta.
 const OLD = { 'Feb 4-7': 'Jan 31-Feb 7', 'Feb 18-21': 'Feb 14-21', 'Mar 4-7': 'Feb 28-Mar 7' };
 
@@ -40,7 +40,7 @@ function setup_() {
   const sum = ss.insertSheet('Resumen', 1);
   sum.appendRow(['Fechas', 'Pueden ir']);
   DATES.forEach((x, i) => {
-    const col = String.fromCharCode(67 + i); // C, D, E
+    const col = String.fromCharCode(67 + i); // C, D, E, F
     sum.appendRow([x, '=COUNTIF(Respuestas!' + col + ':' + col + ',"Sí")']);
   });
   sum.appendRow(['Total respuestas', '=COUNTA(Respuestas!B:B)-1']);
