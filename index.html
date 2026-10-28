@@ -9,14 +9,14 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://jesusmlpd.github.io/marblism-retreat/">
 <meta property="og:title" content="Marblism Retreat 2027 · When can you go?">
-<meta property="og:description" content="A full week in Mexico, Sunday to Sunday. Tap the weeks that work for you: Jan 31 to Feb 7, Feb 14 to 21, Feb 21 to 28, Feb 28 to Mar 7 or Mar 7 to 14.">
-<meta property="og:image" content="https://jesusmlpd.github.io/marblism-retreat/og-5weeks.jpg">
+<meta property="og:description" content="A full week in Mexico, Sunday to Sunday. Tap the weeks that work for you: Jan 31 to Feb 7, Feb 14 to 21, Feb 21 to 28, Feb 28 to Mar 7, Mar 7 to 14 or Mar 14 to 21.">
+<meta property="og:image" content="https://jesusmlpd.github.io/marblism-retreat/og-6weeks.jpg">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Marblism team retreat in Mexico, Sunday to Sunday: Jan 31 to Feb 7, Feb 14 to 21, Feb 21 to 28, Feb 28 to Mar 7 or Mar 7 to 14">
+<meta property="og:image:alt" content="Marblism team retreat in Mexico, Sunday to Sunday: Jan 31 to Feb 7, Feb 14 to 21, Feb 21 to 28, Feb 28 to Mar 7, Mar 7 to 14 or Mar 14 to 21">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://jesusmlpd.github.io/marblism-retreat/og-5weeks.jpg">
+<meta name="twitter:image" content="https://jesusmlpd.github.io/marblism-retreat/og-6weeks.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -111,6 +111,7 @@
         <label class="opt"><input type="checkbox" name="dates" value="Feb 21-28"><span class="card"><span class="tick">✓</span><span class="range" data-i18n="rangeD">Feb 21 to 28</span><span class="days" data-i18n="days">Sunday to Sunday · 7 nights</span></span></label>
         <label class="opt"><input type="checkbox" name="dates" value="Feb 28-Mar 7"><span class="card"><span class="tick">✓</span><span class="range" data-i18n="rangeC">Feb 28 to Mar 7</span><span class="days" data-i18n="days">Sunday to Sunday · 7 nights</span></span></label>
         <label class="opt"><input type="checkbox" name="dates" value="Mar 7-14"><span class="card"><span class="tick">✓</span><span class="range" data-i18n="rangeE">Mar 7 to 14</span><span class="days" data-i18n="days">Sunday to Sunday · 7 nights</span></span></label>
+        <label class="opt"><input type="checkbox" name="dates" value="Mar 14-21"><span class="card"><span class="tick">✓</span><span class="range" data-i18n="rangeF">Mar 14 to 21</span><span class="days" data-i18n="days">Sunday to Sunday · 7 nights</span></span></label>
       </div>
       <p class="hint" data-i18n="hint">Pick as many as you like.</p>
     </div>
@@ -138,7 +139,7 @@
       kicker:"Team retreat · Mexico · 2027", title:"When can you go?",
       sub:"A full week in Mexico, Sunday to Sunday. Tap every week that works for you.",
       s1:"Your name", s2:"Weeks that work for you", s3:"Are you allergic to anything?", allergyPh:"Food, medicine, anything. Leave empty if none.",
-      rangeA:"Jan 31 to Feb 7", rangeB:"Feb 14 to 21", rangeC:"Feb 28 to Mar 7", rangeD:"Feb 21 to 28", rangeE:"Mar 7 to 14", days:"Sunday to Sunday · 7 nights",
+      rangeA:"Jan 31 to Feb 7", rangeB:"Feb 14 to 21", rangeC:"Feb 28 to Mar 7", rangeD:"Feb 21 to 28", rangeE:"Mar 7 to 14", rangeF:"Mar 14 to 21", days:"Sunday to Sunday · 7 nights",
       hint:"Pick as many as you like.", send:"Send", sending:"Sending...",
       thanks:"Got it, thank you! We will share the final dates soon.",
       noName:"Please write your name.", noDates:"Tap at least one week.",
@@ -149,7 +150,7 @@
       kicker:"Retiro del equipo · México · 2027", title:"¿Cuándo puedes ir?",
       sub:"Una semana completa en México, de domingo a domingo. Toca todas las semanas que te funcionen.",
       s1:"Tu nombre", s2:"Semanas que te funcionan", s3:"¿Eres alérgico a algo?", allergyPh:"Comida, medicinas, lo que sea. Déjalo vacío si nada.",
-      rangeA:"31 ene al 7 feb", rangeB:"14 al 21 feb", rangeC:"28 feb al 7 mar", rangeD:"21 al 28 feb", rangeE:"7 al 14 mar", days:"De domingo a domingo · 7 noches",
+      rangeA:"31 ene al 7 feb", rangeB:"14 al 21 feb", rangeC:"28 feb al 7 mar", rangeD:"21 al 28 feb", rangeE:"7 al 14 mar", rangeF:"14 al 21 mar", days:"De domingo a domingo · 7 noches",
       hint:"Elige todas las que quieras.", send:"Enviar", sending:"Enviando...",
       thanks:"¡Listo, gracias! Pronto compartimos las fechas finales.",
       noName:"Escribe tu nombre.", noDates:"Toca al menos una semana.",
@@ -211,6 +212,7 @@
             "Feb 21-28": dates.includes("Feb 21-28") ? "Yes" : "No",
             "Feb 28-Mar 7": dates.includes("Feb 28-Mar 7") ? "Yes" : "No",
             "Mar 7-14": dates.includes("Mar 7-14") ? "Yes" : "No",
+            "Mar 14-21": dates.includes("Mar 14-21") ? "Yes" : "No",
             Allergies: allergies || "None"
           })
         });
