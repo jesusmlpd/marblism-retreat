@@ -2,7 +2,9 @@
 // Pegar en Extensiones > Apps Script del Sheet y publicar como app web
 // (Ejecutar como: yo, Quién tiene acceso: cualquier usuario).
 
-const DATES = ['Feb 4-7', 'Feb 18-21', 'Mar 4-7'];
+const DATES = ['Jan 31-Feb 7', 'Feb 14-21', 'Feb 28-Mar 7'];
+// Valores de la versión jueves a domingo, por si alguien tiene la página vieja abierta.
+const OLD = { 'Feb 4-7': 'Jan 31-Feb 7', 'Feb 18-21': 'Feb 14-21', 'Mar 4-7': 'Feb 28-Mar 7' };
 
 function doPost(e) {
   const lock = LockService.getScriptLock();
@@ -10,12 +12,12 @@ function doPost(e) {
   try {
     const d = JSON.parse(e.postData.contents);
     const name = clean_(d.name);
-    const picked = Array.isArray(d.dates) ? d.dates : [];
+    const picked = (Array.isArray(d.dates) ? d.dates : []).map(x => OLD[x] || x);
     if (!name || !picked.length) return json_({ ok: false, error: 'missing' });
 
     const sh = setup_();
     const allergies = clean_(d.allergies) || 'Ninguna';
-    sh.appendRow([new Date(), name].concat(DATES.map(x => picked.includes(x) ? 'Sí' : 'No'), [allergies]));
+    sh.appendRow([new Date(), name].concat(DATES.map(x => picked.includes(x) ? 'Sí' : 'No'), [allergies, 'Dom a Dom']));
     return json_({ ok: true });
   } catch (err) {
     return json_({ ok: false, error: String(err) });
@@ -31,8 +33,8 @@ function setup_() {
   if (sh) return sh;
 
   sh = ss.insertSheet('Respuestas', 0);
-  sh.appendRow(['Fecha', 'Nombre'].concat(DATES, ['Alergias']));
-  sh.getRange(1, 1, 1, DATES.length + 3).setFontWeight('bold').setBackground('#ffd400');
+  sh.appendRow(['Fecha', 'Nombre'].concat(DATES, ['Alergias', 'Formato']));
+  sh.getRange(1, 1, 1, DATES.length + 4).setFontWeight('bold').setBackground('#ffd400');
   sh.setFrozenRows(1);
 
   const sum = ss.insertSheet('Resumen', 1);
