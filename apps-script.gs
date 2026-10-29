@@ -2,7 +2,9 @@
 // Pegar en Extensiones > Apps Script del Sheet y publicar como app web
 // (Ejecutar como: yo, Quién tiene acceso: cualquier usuario).
 
-const DATES = ['Jan 31-Feb 7', 'Feb 14-21', 'Feb 21-28', 'Feb 28-Mar 7', 'Mar 7-14', 'Mar 14-21'];
+// Columnas del Sheet, en orden. Las de febrero ya no se ofrecen pero se quedan para no perder respuestas.
+const DATES = ['Jan 31-Feb 7', 'Feb 14-21', 'Feb 21-28', 'Feb 28-Mar 7', 'Mar 7-14', 'Mar 14-21', 'Mar 21-28'];
+const OFFERED = ['Feb 28-Mar 7', 'Mar 7-14', 'Mar 14-21', 'Mar 21-28'];
 // Valores de la versión jueves a domingo, por si alguien tiene la página vieja abierta.
 const OLD = { 'Feb 4-7': 'Jan 31-Feb 7', 'Feb 18-21': 'Feb 14-21', 'Mar 4-7': 'Feb 28-Mar 7' };
 
@@ -17,7 +19,7 @@ function doPost(e) {
 
     const sh = setup_();
     const allergies = clean_(d.allergies) || 'Ninguna';
-    sh.appendRow([new Date(), name].concat(DATES.map(x => picked.includes(x) ? 'Sí' : 'No'), [allergies, 'Dom a Dom']));
+    sh.appendRow([new Date(), name].concat(DATES.map(x => !OFFERED.includes(x) ? 'Ya no' : picked.includes(x) ? 'Sí' : 'No'), [allergies, 'Dom a Dom']));
     return json_({ ok: true });
   } catch (err) {
     return json_({ ok: false, error: String(err) });
@@ -40,7 +42,7 @@ function setup_() {
   const sum = ss.insertSheet('Resumen', 1);
   sum.appendRow(['Fechas', 'Pueden ir']);
   DATES.forEach((x, i) => {
-    const col = String.fromCharCode(67 + i); // C, D, E, F, G, H
+    const col = String.fromCharCode(67 + i); // C, D, E, F, G, H, I
     sum.appendRow([x, '=COUNTIF(Respuestas!' + col + ':' + col + ',"Sí")']);
   });
   sum.appendRow(['Total respuestas', '=COUNTA(Respuestas!B:B)-1']);
